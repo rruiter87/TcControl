@@ -17,7 +17,7 @@
     <LibraryReferences>{3d702260-1252-42ef-a1bc-4ecc9ed638d9}</LibraryReferences>
     <Company>inspire AG</Company>
     <Released>true</Released>
-    <Title>TcControls</Title>
+    <Title>TcControl</Title>
     <ProjectVersion>0.1.0</ProjectVersion>
     <Author>Roald Ruiter</Author>
     <Description>PID control function blocks</Description>
