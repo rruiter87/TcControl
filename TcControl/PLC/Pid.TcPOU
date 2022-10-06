@@ -1,0 +1,30 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.11">
+  <POU Name="Pid" Id="{da73802b-2471-4be1-ae33-77c4e2eb36c6}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION_BLOCK Pid IMPLEMENTS IPid
+VAR_INPUT
+    setpoint : LREAL;
+    actual : LREAL;
+    parameters : PidParameters;
+END_VAR
+VAR
+    _out : LREAL;
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[_out := parameters.Kp * (setpoint - actual);
+]]></ST>
+    </Implementation>
+    <Property Name="Out" Id="{15ef5403-f0db-4dd2-9900-07e6b4494afc}">
+      <Declaration><![CDATA[PROPERTY Out : LREAL
+]]></Declaration>
+      <Get Name="Get" Id="{72cbacfe-7ca3-43fc-b241-9d203cf10514}">
+        <Declaration><![CDATA[]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[Out := _out;
+]]></ST>
+        </Implementation>
+      </Get>
+    </Property>
+  </POU>
+</TcPlcObject>

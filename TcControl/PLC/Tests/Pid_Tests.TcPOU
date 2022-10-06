@@ -1,0 +1,66 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.11">
+  <POU Name="Pid_Tests" Id="{d37e3a2d-290f-492c-9ef6-af8dd98f69e3}" SpecialFunc="None">
+    <Declaration><![CDATA[{attribute 'hide'}
+FUNCTION_BLOCK Pid_Tests EXTENDS FB_TestSuite
+VAR
+    delta : LREAL := 1E-5;
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[OnlyProportionalPart();
+OnlyPropotionalPartRunTwiceWithDifferentInputs();
+]]></ST>
+    </Implementation>
+    <Method Name="OnlyProportionalPart" Id="{4180392b-050f-4fed-a265-d9a44e45b893}">
+      <Declaration><![CDATA[METHOD OnlyProportionalPart
+VAR_INST
+    P : Pid;
+    parameters : PidParameters := (Kp:=5);
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[TcUnit.TEST('OnlyProportionalPart');
+
+P(setpoint:=10, actual:=5, parameters:=parameters);
+
+AssertEquals_LREAL(Expected:=25, Actual:=P.Out, Delta:=delta, Message:='Pid output not correct');
+
+TcUnit.TEST_FINISHED();
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="OnlyPropotionalPartRunTwiceWithDifferentInputs" Id="{1d265881-ea1f-4b87-98ee-c292edfec96c}">
+      <Declaration><![CDATA[METHOD OnlyPropotionalPartRunTwiceWithDifferentInputs
+VAR_INST
+    P : Pid;
+    parameters : PidParameters := (Kp:=2);
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[TcUnit.TEST('OnlyPropotionalPartRunTwiceWithDifferentInputs');
+
+P(setpoint:=3, actual:=4.5, parameters:=parameters);
+
+AssertEquals_LREAL(
+    Expected:=-3,
+    Actual:=P.Out,
+    Delta:=delta,
+    Message:='Pid output after run 1 not correct'
+);
+
+P(setpoint:=-8, actual:=-6, parameters:=parameters);
+
+AssertEquals_LREAL(
+    Expected:=-4,
+    Actual:=P.Out,
+    Delta:=delta,
+    Message:='Pid output after run 2 not correct'
+);
+
+TcUnit.TEST_FINISHED();
+]]></ST>
+      </Implementation>
+    </Method>
+  </POU>
+</TcPlcObject>
