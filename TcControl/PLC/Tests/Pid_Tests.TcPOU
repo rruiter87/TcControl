@@ -1,8 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.11">
   <POU Name="Pid_Tests" Id="{d37e3a2d-290f-492c-9ef6-af8dd98f69e3}" SpecialFunc="None">
-    <Declaration><![CDATA[{attribute 'hide'}
-FUNCTION_BLOCK Pid_Tests EXTENDS FB_TestSuite
+    <Declaration><![CDATA[FUNCTION_BLOCK Pid_Tests EXTENDS FB_TestSuite
 VAR
     delta : LREAL := 1E-5;
 END_VAR
@@ -10,8 +9,39 @@ END_VAR
     <Implementation>
       <ST><![CDATA[OnlyProportionalPart();
 OnlyPropotionalPartRunTwiceWithDifferentInputs();
+OnlyIntegralPart();
 ]]></ST>
     </Implementation>
+    <Method Name="OnlyIntegralPart" Id="{5d97b5ea-7ca7-495f-b7ce-68e585bdb9a4}">
+      <Declaration><![CDATA[METHOD OnlyIntegralPart
+VAR_INST
+    P : Pid;
+    parameters : PidParameters := (Ki:=0.25);
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[TcUnit.TEST('OnlyIntegralPart');
+
+P(setpoint:=10, actual:=6, parameters:=parameters);
+AssertEquals_LREAL(
+    Expected:=1,
+    Actual:=P.Out,
+    Delta:=delta,
+    Message:='Pid output run 1 not correct'
+);
+
+P(setpoint:=10, actual:=8, parameters:=parameters);
+AssertEquals_LREAL(
+    Expected:=1.5,
+    Actual:=P.Out,
+    Delta:=delta,
+    Message:='Pid output run 2 not correct'
+);
+
+TcUnit.TEST_FINISHED();
+]]></ST>
+      </Implementation>
+    </Method>
     <Method Name="OnlyProportionalPart" Id="{4180392b-050f-4fed-a265-d9a44e45b893}">
       <Declaration><![CDATA[METHOD OnlyProportionalPart
 VAR_INST

@@ -8,11 +8,19 @@ VAR_INPUT
     parameters : PidParameters;
 END_VAR
 VAR
+    _error : LREAL;
+    _proportionalPart : LREAL;
+    _integralPart : LREAL;
+    _previousIntegralPart : LREAL;
     _out : LREAL;
 END_VAR
 ]]></Declaration>
     <Implementation>
-      <ST><![CDATA[_out := parameters.Kp * (setpoint - actual);
+      <ST><![CDATA[_error := setpoint - actual;
+_proportionalPart := parameters.Kp * _error;
+_integralPart := _previousIntegralPart + parameters.Ki * _error;
+_previousIntegralPart := _integralPart;
+_out := _proportionalPart + _integralPart;
 ]]></ST>
     </Implementation>
     <Property Name="Out" Id="{15ef5403-f0db-4dd2-9900-07e6b4494afc}">
