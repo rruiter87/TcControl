@@ -10,24 +10,43 @@ END_VAR
 VAR
     _error : LREAL;
     _previousError : LREAL;
+    _deltaError : LREAL;
     _proportionalPart : LREAL;
     _integralPart : LREAL;
     _previousIntegralPart : LREAL;
     _differentialPart : LREAL;
+    _differentialPartLimit : LREAL;
     _out : LREAL;
 END_VAR
 ]]></Declaration>
     <Implementation>
       <ST><![CDATA[_error := setpoint - actual;
+
 _proportionalPart := parameters.Kp * _error;
+
 _integralPart := _previousIntegralPart + parameters.Ki * _error;
 _previousIntegralPart := _integralPart;
-_differentialPart := (_error - _previousError) * parameters.Kd;
+
+_deltaError := _error - _previousError;
+IF _differentialPartLimit = 0 OR _deltaError <= _differentialPartLimit THEN
+    _differentialPart := _deltaError * parameters.Kd;
+END_IF
 _previousError := _error;
 
 _out := _proportionalPart + _integralPart + _differentialPart;
 ]]></ST>
     </Implementation>
+    <Property Name="DifferentialPartLimit" Id="{0e5fc49d-15ed-446b-b5c4-b8f8bc7054d6}">
+      <Declaration><![CDATA[PROPERTY DifferentialPartLimit : LREAL
+]]></Declaration>
+      <Set Name="Set" Id="{ebaea50d-eb7b-45f8-9ebf-1ac59fe2b99d}">
+        <Declaration><![CDATA[]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[_differentialPartLimit := DifferentialPartLimit;
+]]></ST>
+        </Implementation>
+      </Set>
+    </Property>
     <Property Name="Out" Id="{15ef5403-f0db-4dd2-9900-07e6b4494afc}">
       <Declaration><![CDATA[PROPERTY Out : LREAL
 ]]></Declaration>

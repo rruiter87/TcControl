@@ -12,6 +12,7 @@ OnlyPropotionalPartRunTwiceWithDifferentInputs();
 OnlyIntegralPart();
 OnlyIntegralPartSetPreviousIntegralPartBefore();
 OnlyDifferentialPart();
+OnlyDifferentialPartWithDiffLimit();
 ]]></ST>
     </Implementation>
     <Method Name="OnlyDifferentialPart" Id="{4f99075d-a13f-4f18-8a15-c8ddba8e5a52}">
@@ -27,6 +28,37 @@ END_VAR
 P(setpoint:=10, actual:=6, parameters:=parameters);
 AssertEquals_LREAL(
     Expected:=0.04,
+    Actual:=P.Out,
+    Delta:=delta,
+    Message:='Pid output run 1 not correct'
+);
+
+P(setpoint:=10, actual:=8, parameters:=parameters);
+AssertEquals_LREAL(
+    Expected:=-0.02,
+    Actual:=P.Out,
+    Delta:=delta,
+    Message:='Pid output run 2 not correct'
+);
+
+TcUnit.TEST_FINISHED();
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="OnlyDifferentialPartWithDiffLimit" Id="{241d286d-fea2-4eb4-8a87-6d9bdc37a17d}">
+      <Declaration><![CDATA[METHOD OnlyDifferentialPartWithDiffLimit
+VAR_INST
+    P : Pid;
+    parameters : PidParameters := (Kd:=0.01);
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[TcUnit.TEST('OnlyDifferentialPartWithDiffLimit');
+
+P.DifferentialPartLimit := 3;
+P(setpoint:=10, actual:=6, parameters:=parameters);
+AssertEquals_LREAL(
+    Expected:=0,
     Actual:=P.Out,
     Delta:=delta,
     Message:='Pid output run 1 not correct'
