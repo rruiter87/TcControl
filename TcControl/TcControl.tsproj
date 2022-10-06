@@ -10,7 +10,7 @@
 			</Tasks>
 		</System>
 		<Plc>
-			<Project File="PLC.xti"/>
+			<Project File="TcControl.xti"/>
 		</Plc>
 	</Project>
 </TcSmProject>
