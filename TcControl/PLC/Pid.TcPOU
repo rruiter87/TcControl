@@ -9,9 +9,11 @@ VAR_INPUT
 END_VAR
 VAR
     _error : LREAL;
+    _previousError : LREAL;
     _proportionalPart : LREAL;
     _integralPart : LREAL;
     _previousIntegralPart : LREAL;
+    _differentialPart : LREAL;
     _out : LREAL;
 END_VAR
 ]]></Declaration>
@@ -20,7 +22,10 @@ END_VAR
 _proportionalPart := parameters.Kp * _error;
 _integralPart := _previousIntegralPart + parameters.Ki * _error;
 _previousIntegralPart := _integralPart;
-_out := _proportionalPart + _integralPart;
+_differentialPart := (_error - _previousError) * parameters.Kd;
+_previousError := _error;
+
+_out := _proportionalPart + _integralPart + _differentialPart;
 ]]></ST>
     </Implementation>
     <Property Name="Out" Id="{15ef5403-f0db-4dd2-9900-07e6b4494afc}">
@@ -33,6 +38,17 @@ _out := _proportionalPart + _integralPart;
 ]]></ST>
         </Implementation>
       </Get>
+    </Property>
+    <Property Name="PreviousIntegralPart" Id="{84c7dc6b-7c17-4d37-ad09-62b2cacd0ffa}">
+      <Declaration><![CDATA[PROPERTY PreviousIntegralPart : LREAL
+]]></Declaration>
+      <Set Name="Set" Id="{f9f66342-ded5-4cda-8f18-8e494b23a987}">
+        <Declaration><![CDATA[]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[_previousIntegralPart := PreviousIntegralPart;
+]]></ST>
+        </Implementation>
+      </Set>
     </Property>
   </POU>
 </TcPlcObject>

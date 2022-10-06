@@ -9,5 +9,11 @@
         <Declaration><![CDATA[]]></Declaration>
       </Get>
     </Property>
+    <Property Name="PreviousIntegralPart" Id="{a71b62c7-c254-4773-b8fa-48b59422a176}">
+      <Declaration><![CDATA[PROPERTY PreviousIntegralPart : LREAL]]></Declaration>
+      <Set Name="Set" Id="{ac35ef80-707b-4fe3-b090-b8f4674b975e}">
+        <Declaration><![CDATA[]]></Declaration>
+      </Set>
+    </Property>
   </Itf>
 </TcPlcObject>
