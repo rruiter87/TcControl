@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <TcSmItem xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://www.beckhoff.com/schemas/2012/07/TcSmProject" TcSmVersion="1.0" TcVersion="3.1.4024.32" ClassName="CNestedPlcProjDef">
 	<Project GUID="{F453AB50-38C8-4444-AA8A-35576C734F1E}" Name="TcControl" PrjFilePath="..\..\TcControl\TcControl.plcproj" TmcFilePath="..\..\TcControl\TcControl.tmc" ReloadTmc="true" AmsPort="851" FileArchiveSettings="#x000e" SymbolicMapping="true">
-		<Instance Id="#x08502000" TcSmClass="TComPlcObjDef" KeepUnrestoredLinks="2" TmcPath="PLC\PLC.tmc" TmcHash="{3F712FB9-0ED1-D0AD-9619-1C6FA1FFF5F4}">
+		<Instance Id="#x08502000" TcSmClass="TComPlcObjDef" KeepUnrestoredLinks="2" TmcPath="TcControl\TcControl.tmc" TmcHash="{4F9E13C8-9CD6-3B2A-814A-299E9DDB86E0}">
 			<Name>TcControl Instance</Name>
 			<CLSID ClassFactory="TcPlc30">{08500001-0000-0000-F000-000000000064}</CLSID>
 			<Contexts>

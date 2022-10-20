@@ -4,6 +4,7 @@
     <Declaration><![CDATA[PROGRAM UnitTests
 VAR
     pidTests : Pid_Tests;
+    infiniteImpluseResponseTests : InfiniteImpulseResponse_Tests;
 END_VAR
 ]]></Declaration>
     <Implementation>

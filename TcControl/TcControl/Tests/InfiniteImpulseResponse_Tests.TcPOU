@@ -1,0 +1,78 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.11">
+  <POU Name="InfiniteImpulseResponse_Tests" Id="{635814e4-7a92-4f9b-b1fb-ebefd308f0cd}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION_BLOCK InfiniteImpulseResponse_Tests EXTENDS FB_TestSuite
+VAR
+    delta : LREAL := 1e-5;
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[CalculateImpulseResponse();
+CalculateStepResponse();
+]]></ST>
+    </Implementation>
+    <Method Name="CalculateImpulseResponse" Id="{39f5767b-7c28-43d2-8199-5a0450ef329c}">
+      <Declaration><![CDATA[METHOD CalculateImpulseResponse
+VAR_INST
+    iir : InfiniteImpulseResponse;
+    i : DINT;
+    decay : LREAL := 0.9;
+    step : LREAL := 1;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[TcUnit.TEST('CalculateImpulseResponse');
+
+iir(new:=step, decay:=decay);
+FOR i := 0 TO 9 DO
+    AssertEquals_LREAL(
+        Expected:=(1 - decay) * EXPT(decay, i),
+        Actual:=iir.Out,
+        Message:=CONCAT('Fail at i=', TO_STRING(i)),
+        Delta:=delta
+    );
+    iir(new:=0);
+END_FOR
+
+TcUnit.TEST_FINISHED();
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="CalculateStepResponse" Id="{c972fa21-e477-4ec5-9aec-c11099672f5f}">
+      <Declaration><![CDATA[METHOD CalculateStepResponse
+VAR_INST
+    iir : InfiniteImpulseResponse;
+    i : DINT;
+    decay : LREAL := 0.95;
+    step : LREAL := 5;
+    expected : ARRAY[0..9] OF LREAL := [0.25,
+        0.4875,
+        0.71313,
+        0.92747,
+        1.1311,
+        1.32454,
+        1.50831,
+        1.6829,
+        1.84875,
+        2.00632];
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[TcUnit.TEST('CalculateStepResponse');
+
+FOR i := 0 TO 9 DO
+    iir(new:=step, decay:=decay);
+    AssertEquals_LREAL(
+        Expected:=expected[i],
+        Actual:=iir.Out,
+        Message:=CONCAT('Fail at i=', TO_STRING(i)),
+        Delta:=delta
+    );
+END_FOR
+
+TcUnit.TEST_FINISHED();
+]]></ST>
+      </Implementation>
+    </Method>
+  </POU>
+</TcPlcObject>

@@ -1,0 +1,32 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.11">
+  <POU Name="InfiniteImpulseResponse" Id="{f8c814fe-9c50-4fa3-be31-ddba18f7ea5c}" SpecialFunc="None">
+    <Declaration><![CDATA[(* Low pass Infinite Impulse Response (IIR) filter*)
+FUNCTION_BLOCK InfiniteImpulseResponse
+VAR_INPUT
+    new : LREAL;
+    decay : LREAL;
+END_VAR
+VAR
+    _previous : LREAL;
+    _out : LREAL;
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[_out := _previous * decay + new * (1 - decay);
+_previous := _out;
+]]></ST>
+    </Implementation>
+    <Property Name="Out" Id="{0947fad0-a47b-4436-9f1f-02025124f8a9}">
+      <Declaration><![CDATA[PROPERTY Out : LREAL
+]]></Declaration>
+      <Get Name="Get" Id="{a19f5262-6b95-469f-bc31-d14a4bf3fb97}">
+        <Declaration><![CDATA[]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[Out := _out;
+]]></ST>
+        </Implementation>
+      </Get>
+    </Property>
+  </POU>
+</TcPlcObject>
