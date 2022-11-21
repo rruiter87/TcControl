@@ -16,9 +16,9 @@
     <Implicit_Jitter_Distribution>{9330e18b-9c97-4e55-91ab-efd4863c853f}</Implicit_Jitter_Distribution>
     <LibraryReferences>{3d702260-1252-42ef-a1bc-4ecc9ed638d9}</LibraryReferences>
     <Company>inspire AG</Company>
-    <Released>false</Released>
+    <Released>true</Released>
     <Title>TcControl</Title>
-    <ProjectVersion>0.1.0</ProjectVersion>
+    <ProjectVersion>0.2.0</ProjectVersion>
     <Author>Roald Ruiter</Author>
     <Description>PID control function blocks</Description>
   </PropertyGroup>
