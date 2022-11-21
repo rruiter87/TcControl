@@ -6,7 +6,7 @@ VAR_INPUT
     setpoint : LREAL;
     actual : LREAL;
     parameters : PidParameters;
-    cycleTime : Millisecond;
+    cycleTime : Millisecond := 1;
 END_VAR
 VAR
     _error : LREAL;
@@ -28,7 +28,7 @@ _proportionalPart := parameters.Kp * _error;
 _integralPart := _previousIntegralPart + parameters.Ki * _error * cycleTime;
 _previousIntegralPart := _integralPart;
 
-_deltaError := _error - _previousError;
+_deltaError := (_error - _previousError) / cycleTime;
 IF _differentialPartLimit = 0 OR _deltaError <= _differentialPartLimit THEN
     _differentialPart := _deltaError * parameters.Kd;
 END_IF

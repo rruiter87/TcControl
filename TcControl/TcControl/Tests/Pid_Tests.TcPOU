@@ -14,8 +14,40 @@ OnlyIntegralPartSetPreviousIntegralPartBefore();
 OnlyDifferentialPart();
 OnlyDifferentialPartWithDiffLimit();
 DifferentCycleTimesSameOutputIntegralPart();
+DifferentCycleTimesSameOutputDifferentialPart();
 ]]></ST>
     </Implementation>
+    <Method Name="DifferentCycleTimesSameOutputDifferentialPart" Id="{21fb58cc-afc4-4d4c-bfea-12ac57e21910}">
+      <Declaration><![CDATA[METHOD DifferentCycleTimesSameOutputDifferentialPart
+VAR_INST
+    Pfast : Pid;
+    Pslow : Pid;
+    parameters : PidParameters := (Kd:=1);
+    i : INT;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[TEST('DifferentCycleTimesSameOutputDifferentialPart');
+
+FOR i := 1 TO 4 DO
+    Pfast(setpoint:=3, actual:=2 + i * 0.25, parameters:=parameters, cycleTime:=1);
+END_FOR
+
+FOR i := 1 TO 2 DO
+    Pslow(setpoint:=3, actual:=2 + i * 0.5, parameters:=parameters, cycleTime:=2);
+END_FOR
+
+AssertEquals_LREAL(
+    Expected:=Pslow.Out,
+    Actual:=Pfast.Out,
+    Delta:=delta,
+    Message:='Slow and fast pid should give the same result'
+);
+
+TcUnit.TEST_FINISHED();
+]]></ST>
+      </Implementation>
+    </Method>
     <Method Name="DifferentCycleTimesSameOutputIntegralPart" Id="{07c9ad63-6800-4d52-804c-298e0cae3bb9}">
       <Declaration><![CDATA[METHOD DifferentCycleTimesSameOutputIntegralPart
 VAR_INST
