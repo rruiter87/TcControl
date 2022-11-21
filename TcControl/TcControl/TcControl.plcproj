@@ -43,6 +43,9 @@
     <Compile Include="InfiniteImpulseResponse.TcPOU">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Millisecond.TcDUT">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Pid.TcPOU">
       <SubType>Code</SubType>
     </Compile>

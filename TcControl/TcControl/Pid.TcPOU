@@ -1,11 +1,12 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.11">
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
   <POU Name="Pid" Id="{da73802b-2471-4be1-ae33-77c4e2eb36c6}" SpecialFunc="None">
     <Declaration><![CDATA[FUNCTION_BLOCK Pid IMPLEMENTS IPid
 VAR_INPUT
     setpoint : LREAL;
     actual : LREAL;
     parameters : PidParameters;
+    cycleTime : Millisecond;
 END_VAR
 VAR
     _error : LREAL;
@@ -24,7 +25,7 @@ END_VAR
 
 _proportionalPart := parameters.Kp * _error;
 
-_integralPart := _previousIntegralPart + parameters.Ki * _error;
+_integralPart := _previousIntegralPart + parameters.Ki * _error * cycleTime;
 _previousIntegralPart := _integralPart;
 
 _deltaError := _error - _previousError;
