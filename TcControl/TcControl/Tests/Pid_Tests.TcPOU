@@ -15,6 +15,7 @@ OnlyDifferentialPart();
 OnlyDifferentialPartWithDiffLimit();
 DifferentCycleTimesSameOutputIntegralPart();
 DifferentCycleTimesSameOutputDifferentialPart();
+DivideByZeroCycleTimeCheck();
 ]]></ST>
     </Implementation>
     <Method Name="DifferentCycleTimesSameOutputDifferentialPart" Id="{21fb58cc-afc4-4d4c-bfea-12ac57e21910}">
@@ -69,6 +70,23 @@ AssertEquals_LREAL(
     Delta:=delta,
     Message:='Slow and fast pid should give the same result'
 );
+
+TcUnit.TEST_FINISHED();
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="DivideByZeroCycleTimeCheck" Id="{cc32b3cb-eb63-4350-bd0f-4654057ba87c}">
+      <Declaration><![CDATA[METHOD DivideByZeroCycleTimeCheck
+VAR_INST
+    P : Pid;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[TcUnit.TEST('DivideByZeroCycleTimeCheck');
+
+P(cycleTime:=0);
+
+//Should not cause an exception
 
 TcUnit.TEST_FINISHED();
 ]]></ST>
