@@ -3,19 +3,17 @@
   <Itf Name="IDifferentiable" Id="{ef3bce93-b4be-41da-891f-48a7afa41e3d}">
     <Declaration><![CDATA[INTERFACE IDifferentiable EXTENDS IOut
 ]]></Declaration>
+    <Method Name="Control" Id="{629d8683-07d5-4dca-9fe9-930d2298bc20}">
+      <Declaration><![CDATA[METHOD Control: IOut
+VAR_INPUT
+    setpoint : LREAL;
+END_VAR
+]]></Declaration>
+    </Method>
     <Method Name="Iir" Id="{8fd6cd0c-7c2a-4af0-8c7a-f34c2613fe30}">
       <Declaration><![CDATA[METHOD Iir : IBaseSignal
 VAR_INPUT
     decay : LREAL;
-END_VAR
-]]></Declaration>
-    </Method>
-    <Method Name="Pid" Id="{629d8683-07d5-4dca-9fe9-930d2298bc20}">
-      <Declaration><![CDATA[METHOD Pid: IOut
-VAR_INPUT
-    setpoint : LREAL;
-    parameters : PidParameters;
-    cycleTime : Millisecond;
 END_VAR
 ]]></Declaration>
     </Method>

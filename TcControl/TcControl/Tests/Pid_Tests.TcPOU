@@ -30,12 +30,14 @@ END_VAR
       <Implementation>
         <ST><![CDATA[TEST('DifferentCycleTimesSameOutputDifferentialPart');
 
+Pfast(parameters:=parameters, cycleTime:=1);
 FOR i := 1 TO 4 DO
-    Pfast(setpoint:=3, actual:=2 + i * 0.25, parameters:=parameters, cycleTime:=1);
+    Pfast.Update(setpoint:=3, actual:=2 + i * 0.25);
 END_FOR
 
+Pslow(parameters:=parameters, cycleTime:=2);
 FOR i := 1 TO 2 DO
-    Pslow(setpoint:=3, actual:=2 + i * 0.5, parameters:=parameters, cycleTime:=2);
+    Pslow.Update(setpoint:=3, actual:=2 + i * 0.5);
 END_FOR
 
 AssertEquals_LREAL(
@@ -60,9 +62,11 @@ END_VAR
       <Implementation>
         <ST><![CDATA[TEST('DifferentCycleTimesSameOutputIntegralPart');
 
-Pfast(setpoint:=3, actual:=2, parameters:=parameters, cycleTime:=1);
-Pfast(setpoint:=3, actual:=2, parameters:=parameters, cycleTime:=1);
-Pslow(setpoint:=3, actual:=2, parameters:=parameters, cycleTime:=2);
+Pfast(parameters:=parameters, cycleTime:=1);
+Pfast.Update(setpoint:=3, actual:=2);
+Pfast.Update(setpoint:=3, actual:=2);
+Pslow(parameters:=parameters, cycleTime:=2);
+Pslow.Update(setpoint:=3, actual:=2);
 
 AssertEquals_LREAL(
     Expected:=Pslow.Out,
@@ -85,6 +89,7 @@ END_VAR
         <ST><![CDATA[TcUnit.TEST('DivideByZeroCycleTimeCheck');
 
 P(cycleTime:=0);
+P.Update(setpoint:=1, actual:=1);
 
 //Should not cause an exception
 
@@ -102,7 +107,8 @@ END_VAR
       <Implementation>
         <ST><![CDATA[TcUnit.TEST('OnlyDifferentialPart');
 
-P(setpoint:=10, actual:=6, parameters:=parameters);
+P(parameters:=parameters);
+P.Update(setpoint:=10, actual:=6);
 AssertEquals_LREAL(
     Expected:=0.04,
     Actual:=P.Out,
@@ -110,7 +116,7 @@ AssertEquals_LREAL(
     Message:='Pid output run 1 not correct'
 );
 
-P(setpoint:=10, actual:=8, parameters:=parameters);
+P.Update(setpoint:=10, actual:=8);
 AssertEquals_LREAL(
     Expected:=-0.02,
     Actual:=P.Out,
@@ -133,7 +139,8 @@ END_VAR
         <ST><![CDATA[TcUnit.TEST('OnlyDifferentialPartWithDiffLimit');
 
 P.DifferentialPartLimit := 3;
-P(setpoint:=10, actual:=6, parameters:=parameters);
+P(parameters:=parameters);
+P.Update(setpoint:=10, actual:=6);
 AssertEquals_LREAL(
     Expected:=0,
     Actual:=P.Out,
@@ -141,7 +148,7 @@ AssertEquals_LREAL(
     Message:='Pid output run 1 not correct'
 );
 
-P(setpoint:=10, actual:=8, parameters:=parameters);
+P.Update(setpoint:=10, actual:=8);
 AssertEquals_LREAL(
     Expected:=-0.02,
     Actual:=P.Out,
@@ -163,7 +170,8 @@ END_VAR
       <Implementation>
         <ST><![CDATA[TcUnit.TEST('OnlyIntegralPart');
 
-P(setpoint:=10, actual:=6, parameters:=parameters);
+P(parameters:=parameters);
+P.Update(setpoint:=10, actual:=6);
 AssertEquals_LREAL(
     Expected:=1,
     Actual:=P.Out,
@@ -171,7 +179,7 @@ AssertEquals_LREAL(
     Message:='Pid output run 1 not correct'
 );
 
-P(setpoint:=10, actual:=8, parameters:=parameters);
+P.Update(setpoint:=10, actual:=8);
 AssertEquals_LREAL(
     Expected:=1.5,
     Actual:=P.Out,
@@ -194,8 +202,8 @@ END_VAR
         <ST><![CDATA[TcUnit.TEST('OnlyIntegralPartSetPreviousIntegralPartBefore');
 
 P.PreviousIntegralPart := 3;
-
-P(setpoint:=10, actual:=6, parameters:=parameters);
+P(parameters:=parameters);
+P.Update(setpoint:=10, actual:=6);
 AssertEquals_LREAL(
     Expected:=4,
     Actual:=P.Out,
@@ -203,7 +211,7 @@ AssertEquals_LREAL(
     Message:='Pid output run 1 not correct'
 );
 
-P(setpoint:=10, actual:=8, parameters:=parameters);
+P.Update(setpoint:=10, actual:=8);
 AssertEquals_LREAL(
     Expected:=4.5,
     Actual:=P.Out,
@@ -225,7 +233,8 @@ END_VAR
       <Implementation>
         <ST><![CDATA[TcUnit.TEST('OnlyProportionalPart');
 
-P(setpoint:=10, actual:=5, parameters:=parameters);
+P(parameters:=parameters);
+P.Update(setpoint:=10, actual:=5);
 
 AssertEquals_LREAL(Expected:=25, Actual:=P.Out, Delta:=delta, Message:='Pid output not correct');
 
@@ -243,7 +252,8 @@ END_VAR
       <Implementation>
         <ST><![CDATA[TcUnit.TEST('OnlyPropotionalPartRunTwiceWithDifferentInputs');
 
-P(setpoint:=3, actual:=4.5, parameters:=parameters);
+P(parameters:=parameters);
+P.Update(setpoint:=3, actual:=4.5);
 
 AssertEquals_LREAL(
     Expected:=-3,
@@ -252,7 +262,7 @@ AssertEquals_LREAL(
     Message:='Pid output after run 1 not correct'
 );
 
-P(setpoint:=-8, actual:=-6, parameters:=parameters);
+P.Update(setpoint:=-8, actual:=-6);
 
 AssertEquals_LREAL(
     Expected:=-4,

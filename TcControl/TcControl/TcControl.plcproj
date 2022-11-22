@@ -50,6 +50,9 @@
     <Compile Include="IBaseSignal.TcIO">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="IController.TcIO">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="IDifferentiable.TcIO">
       <SubType>Code</SubType>
     </Compile>
@@ -72,9 +75,6 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="PidController.TcPOU">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="IPid.TcIO">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="PidParameters.TcDUT">

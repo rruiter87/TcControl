@@ -3,6 +3,13 @@
   <Itf Name="ISignal" Id="{83971406-8867-4284-ae5c-1ba41a8d6010}">
     <Declaration><![CDATA[INTERFACE ISignal EXTENDS IOut
 ]]></Declaration>
+    <Method Name="Control" Id="{df287fcc-b771-40b9-8898-04cb8ae7f272}">
+      <Declaration><![CDATA[METHOD Control : IOut
+VAR_INPUT
+    setpoint : LREAL;
+END_VAR
+]]></Declaration>
+    </Method>
     <Method Name="Differentiate" Id="{87b91ba4-73cf-4951-a824-cab529987ebc}">
       <Declaration><![CDATA[METHOD Differentiate : IDifferentiable
 VAR_INPUT
@@ -14,15 +21,6 @@ END_VAR
       <Declaration><![CDATA[METHOD Iir : IBaseSignal
 VAR_INPUT
     decay : LREAL;
-END_VAR
-]]></Declaration>
-    </Method>
-    <Method Name="Pid" Id="{df287fcc-b771-40b9-8898-04cb8ae7f272}">
-      <Declaration><![CDATA[METHOD Pid : IOut
-VAR_INPUT
-    setpoint : LREAL;
-    parameters : PidParameters;
-    cycleTime : Millisecond;
 END_VAR
 ]]></Declaration>
     </Method>

@@ -129,12 +129,15 @@ TcUnit.TEST_FINISHED();
 VAR_INST
     _signal : Signal;
     parameters : PidParameters := (Kp:=2, Ki:=0.25, Kd:=0.5);
+    pid : PidController;
 END_VAR
 ]]></Declaration>
       <Implementation>
         <ST><![CDATA[TEST('TestPidController');
 
-_signal.Update(3).Pid(setpoint:=4, parameters:=parameters, cycleTime:=1);
+pid(parameters:=parameters, cycleTime:=1);
+_signal.Controller := pid;
+_signal.Update(3).Control(setpoint:=4);
 
 AssertEquals_LREAL(
     Expected:=2.75,
