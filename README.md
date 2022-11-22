@@ -95,11 +95,11 @@ The function blocks used in `Signal` can also be used as stand-alone function bl
 ```
 PROGRAM MAIN
 VAR
-    d : Derivative;
+    derivative : Derivative;
 END_VAR
 
-d(value:=1, deltatime:=1); // d.Out = 0 (derivative is always 0 on the initial call)
-d(value:=2, deltatime:=1); // d.Out = 1
+derivative(value:=1, deltatime:=1); // d.Out = 0 (derivative is always 0 on the initial call)
+derivative(value:=2, deltatime:=1); // d.Out = 1
 ```
 
 See `Derivative_Tests` for more examples.
@@ -124,15 +124,15 @@ See `InfiniteImpulseResponse_Tests` for more examples.
 ```
 PROGRAM MAIN
 VAR
-    P : PidController;
+    pid : PidController;
     parameters : PidParameters := (Kp:=0.1, Ki:=0, Kd:=0.01);
 END_VAR
 
 // limits the difference on the initial call
-P.DifferentialPartLimit := 3;
+pid.DifferentialPartLimit := 3;
 // pass the pid parameters (only need to be done once, unless you change them)
-P(parameters:=parameters, cycleTime:=1);
+pid(parameters:=parameters, cycleTime:=1);
 // Cyclicly call Update
-P.Update(setpoint:=10, actual:=6); // P.Out = 0.4
-P.Update(setpoint:=10, actual:=8); // P.Out = 0.18
+pid.Update(setpoint:=10, actual:=6); // pid.Out = 0.4
+pid.Update(setpoint:=10, actual:=8); // pid.Out = 0.18
 ```
