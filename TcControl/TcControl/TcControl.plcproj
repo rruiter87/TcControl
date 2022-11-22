@@ -56,7 +56,7 @@
     <Compile Include="IOut.TcIO">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Measurement.TcPOU">
+    <Compile Include="Signal.TcPOU">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Millisecond.TcDUT">

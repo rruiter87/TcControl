@@ -8,20 +8,77 @@ END_VAR
 ]]></Declaration>
     <Implementation>
       <ST><![CDATA[OnlyMeasurementShouldReturnSameValue();
+TakeDerivativeOfMeasurement();
+ApplyIirFilterOnSignal();
 ]]></ST>
     </Implementation>
+    <Method Name="ApplyIirFilterOnSignal" Id="{323ff59c-a918-4020-b67e-8db4e2ccd0a4}">
+      <Declaration><![CDATA[METHOD ApplyIirFilterOnSignal
+VAR_INST
+    signal : Signal;
+    actual : LREAL;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[TEST('ApplyIirFilterOnSignal');
+
+signal.Update(value:=1.4).Iir(decay:=0.5);
+AssertEquals_LREAL(Expected:=0.7, Actual:=signal.Out, Delta:=delta, Message:='Output not correct');
+
+actual := signal.Update(value:=8.6).Iir(decay:=0.5).Out;
+AssertEquals_LREAL(Expected:=4.65, Actual:=actual, Delta:=delta, Message:='Output not correct');
+
+TcUnit.TEST_FINISHED();
+]]></ST>
+      </Implementation>
+    </Method>
     <Method Name="OnlyMeasurementShouldReturnSameValue" Id="{8a4d1f9e-aae0-4653-b470-003878844f12}">
       <Declaration><![CDATA[METHOD OnlyMeasurementShouldReturnSameValue : LREAL
 VAR_INST
-    m : Measurement;
+    signal : Signal;
 END_VAR
 ]]></Declaration>
       <Implementation>
         <ST><![CDATA[TEST('OnlyMeasurementShouldReturnSameValue');
 
-m(value:=1.23);
+signal.Update(value:=1.23);
 
-AssertEquals_LREAL(Expected:=1.23, Actual:=m.Out, Delta:=delta, Message:='Output not correct');
+AssertEquals_LREAL(
+    Expected:=1.23,
+    Actual:=signal.Out,
+    Delta:=delta,
+    Message:='Output not correct'
+);
+
+TcUnit.TEST_FINISHED();
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="TakeDerivativeOfMeasurement" Id="{13d21456-2617-4e90-89f6-0d15220be6a8}">
+      <Declaration><![CDATA[METHOD TakeDerivativeOfMeasurement : LREAL
+VAR_INST
+    signal : Signal;
+    actual : LREAL;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[TEST('TakeDerivativeOfMeasurement');
+
+actual := signal.Update(value:=1).Differentiate(deltaTime:=1).Out;
+AssertEquals_LREAL(
+    Expected:=0,
+    Actual:=actual,
+    Delta:=delta,
+    Message:='Derivative after first step not correct'
+);
+
+actual := signal.Update(value:=2).Differentiate(deltaTime:=1).Out;
+AssertEquals_LREAL(
+    Expected:=1,
+    Actual:=actual,
+    Delta:=delta,
+    Message:='Derivative after second step not correct'
+);
 
 TcUnit.TEST_FINISHED();
 ]]></ST>
