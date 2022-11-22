@@ -47,6 +47,12 @@
     <Compile Include="Derivative.TcPOU">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="IBaseSignal.TcIO">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="IDifferentiable.TcIO">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="InstancePath.TcPOU">
       <SubType>Code</SubType>
     </Compile>
@@ -54,6 +60,9 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="IOut.TcIO">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="ISignal.TcIO">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Signal.TcPOU">

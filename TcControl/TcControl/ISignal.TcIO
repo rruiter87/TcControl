@@ -1,0 +1,28 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
+  <Itf Name="ISignal" Id="{83971406-8867-4284-ae5c-1ba41a8d6010}">
+    <Declaration><![CDATA[INTERFACE ISignal EXTENDS IOut
+]]></Declaration>
+    <Method Name="Differentiate" Id="{87b91ba4-73cf-4951-a824-cab529987ebc}">
+      <Declaration><![CDATA[METHOD Differentiate : IDifferentiable
+VAR_INPUT
+    deltaTime : Millisecond;
+END_VAR
+]]></Declaration>
+    </Method>
+    <Method Name="Iir" Id="{dbc48f6e-24e3-46d0-8810-d8781ca3b879}">
+      <Declaration><![CDATA[METHOD Iir : IBaseSignal
+VAR_INPUT
+    decay : LREAL;
+END_VAR
+]]></Declaration>
+    </Method>
+    <Method Name="Update" Id="{96492a64-d485-4a2c-86bf-0390a7a3d226}">
+      <Declaration><![CDATA[METHOD Update : ISignal
+VAR_INPUT
+    value : LREAL;
+END_VAR
+]]></Declaration>
+    </Method>
+  </Itf>
+</TcPlcObject>

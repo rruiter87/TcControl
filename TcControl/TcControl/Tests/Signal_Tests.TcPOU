@@ -4,6 +4,7 @@
     <Declaration><![CDATA[FUNCTION_BLOCK Signal_Tests EXTENDS FB_TestSuite
 VAR_INPUT
     delta : LREAL := 1E-5;
+    si : Signal;
 END_VAR
 ]]></Declaration>
     <Implementation>

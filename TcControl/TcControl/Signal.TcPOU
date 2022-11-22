@@ -1,10 +1,13 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
   <POU Name="Signal" Id="{d5e65a98-c59a-40a4-8e08-14b2a0104701}" SpecialFunc="None">
-    <Declaration><![CDATA[FUNCTION_BLOCK Signal IMPLEMENTS IOut
+    <Declaration><![CDATA[FUNCTION_BLOCK Signal IMPLEMENTS IBaseSignal, IDifferentiable, ISignal
 VAR
+    {attribute 'hide'}
     _out : LREAL;
+    {attribute 'hide'}
     _derivative : Derivative;
+    {attribute 'hide'}
     _iir : InfiniteImpulseResponse;
 END_VAR
 ]]></Declaration>
@@ -12,7 +15,7 @@ END_VAR
       <ST><![CDATA[]]></ST>
     </Implementation>
     <Method Name="Differentiate" Id="{3cb626dd-f306-4dd7-8b41-c5d14146e141}">
-      <Declaration><![CDATA[METHOD Differentiate : REFERENCE TO Signal
+      <Declaration><![CDATA[METHOD Differentiate : IDifferentiable
 VAR_INPUT
     deltaTime : Millisecond;
 END_VAR
@@ -20,12 +23,12 @@ END_VAR
       <Implementation>
         <ST><![CDATA[_derivative(value:=THIS^.Out, deltaTime:=deltaTime);
 _out := _derivative.Out;
-Differentiate REF= THIS^;
+Differentiate := THIS^;
 ]]></ST>
       </Implementation>
     </Method>
     <Method Name="Iir" Id="{20733bae-2f54-4e93-a73e-666694dd4f84}">
-      <Declaration><![CDATA[METHOD Iir : REFERENCE TO Signal
+      <Declaration><![CDATA[METHOD Iir : IBaseSignal
 VAR_INPUT
     decay : LREAL;
 END_VAR
@@ -33,7 +36,7 @@ END_VAR
       <Implementation>
         <ST><![CDATA[_iir(new:=THIS^.Out, decay:=decay);
 _out := _iir.Out;
-Iir REF= THIS^;
+Iir := THIS^;
 ]]></ST>
       </Implementation>
     </Method>
@@ -49,14 +52,14 @@ Iir REF= THIS^;
       </Get>
     </Property>
     <Method Name="Update" Id="{b3adbb0a-1822-4d69-af6d-8f51c8ee0a1c}">
-      <Declaration><![CDATA[METHOD Update : REFERENCE TO Signal
+      <Declaration><![CDATA[METHOD Update : ISignal
 VAR_INPUT
     value : LREAL;
 END_VAR
 ]]></Declaration>
       <Implementation>
         <ST><![CDATA[_out := value;
-Update REF= THIS^;
+Update := THIS^;
 ]]></ST>
       </Implementation>
     </Method>

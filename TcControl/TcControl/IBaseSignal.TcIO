@@ -1,0 +1,14 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
+  <Itf Name="IBaseSignal" Id="{aeeffa15-e2d7-4163-9256-f2dfded0522d}">
+    <Declaration><![CDATA[INTERFACE IBaseSignal EXTENDS IOut
+]]></Declaration>
+    <Method Name="Update" Id="{f0eb471c-499e-499d-ae67-4a3bd890b28a}">
+      <Declaration><![CDATA[METHOD Update : ISignal
+VAR_INPUT
+    value : LREAL;
+END_VAR
+]]></Declaration>
+    </Method>
+  </Itf>
+</TcPlcObject>
