@@ -1,0 +1,31 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
+  <POU Name="Measurement_Tests" Id="{7510fb77-c446-4546-9f01-f98754dd3158}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION_BLOCK Measurement_Tests EXTENDS FB_TestSuite
+VAR_INPUT
+    delta : LREAL := 1E-5;
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[OnlyMeasurementShouldReturnSameValue();
+]]></ST>
+    </Implementation>
+    <Method Name="OnlyMeasurementShouldReturnSameValue" Id="{8a4d1f9e-aae0-4653-b470-003878844f12}">
+      <Declaration><![CDATA[METHOD OnlyMeasurementShouldReturnSameValue : LREAL
+VAR_INST
+    m : Measurement;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[TEST('OnlyMeasurementShouldReturnSameValue');
+
+m(value:=1.23);
+
+AssertEquals_LREAL(Expected:=1.23, Actual:=m.Out, Delta:=delta, Message:='Output not correct');
+
+TcUnit.TEST_FINISHED();
+]]></ST>
+      </Implementation>
+    </Method>
+  </POU>
+</TcPlcObject>

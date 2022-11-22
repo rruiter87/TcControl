@@ -56,6 +56,9 @@
     <Compile Include="IOut.TcIO">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Measurement.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Millisecond.TcDUT">
       <SubType>Code</SubType>
     </Compile>
@@ -78,6 +81,9 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Tests\InfiniteImpulseResponse_Tests.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Tests\Measurement_Tests.TcPOU">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Tests\Pid_Tests.TcPOU">
