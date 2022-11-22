@@ -11,8 +11,8 @@ The basic unit of this library is the `Signal` function block. The most basic us
 ```
 PROGRAM MAIN
 VAR
-	signal : Signal;
-	value : LREAL;
+    signal : Signal;
+    value : LREAL;
 END_VAR
 
 signal.Update(value:=5); // Add new value to signal
@@ -24,8 +24,8 @@ The power of signal becomes clear when combined with `.Differentiate`
 ```
 PROGRAM MAIN
 VAR
-	signal : Signal;
-	value : LREAL;
+    signal : Signal;
+    value : LREAL;
 END_VAR
 
 signal.Update(value:=1).Differentiate(deltaTime:=1);
@@ -37,8 +37,8 @@ Or `.Iir`
 ```
 PROGRAM MAIN
 VAR
-	signal : Signal;
-	value : LREAL;
+    signal : Signal;
+    value : LREAL;
 END_VAR
 
 signal.Update(value:=1.4).Iir(decay:=0.5);
@@ -50,7 +50,7 @@ Or combining both
 ```
 PROGRAM MAIN
 VAR
-	signal : Signal;
+    signal : Signal;
 END_VAR
 
 signal.Update(value:=7).Differentiate(deltaTime:=1).Iir(decay:=0.5); // singal.Out = 0
@@ -63,8 +63,8 @@ Finally the differentiated/filtered signal can be put into a controller. Current
 ```
 PROGRAM MAIN
 VAR
-	signal : Signal;
-	parameters : P	idParameters := (Kp:=2, Ki:=0.25, Kd:=0.5);
+    signal : Signal;
+    parameters : PidParameters := (Kp:=2, Ki:=0.25, Kd:=0.5);
     pid : PidController;
 END_VAR
 
