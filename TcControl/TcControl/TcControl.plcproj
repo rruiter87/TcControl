@@ -18,7 +18,7 @@
     <Company>inspire AG</Company>
     <Released>true</Released>
     <Title>TcControl</Title>
-    <ProjectVersion>0.2.0</ProjectVersion>
+    <ProjectVersion>0.3.0</ProjectVersion>
     <Author>Roald Ruiter</Author>
     <Description>PID control function blocks</Description>
   </PropertyGroup>
