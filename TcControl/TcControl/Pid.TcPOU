@@ -6,6 +6,7 @@ VAR_INPUT
     setpoint : LREAL;
     actual : LREAL;
     parameters : PidParameters;
+    cycleTime : Millisecond := 1;
 END_VAR
 VAR
     _error : LREAL;
@@ -24,10 +25,14 @@ END_VAR
 
 _proportionalPart := parameters.Kp * _error;
 
-_integralPart := _previousIntegralPart + parameters.Ki * _error;
+_integralPart := _previousIntegralPart + parameters.Ki * _error * cycleTime;
 _previousIntegralPart := _integralPart;
 
-_deltaError := _error - _previousError;
+IF cycleTime <> 0 THEN
+    _deltaError := (_error - _previousError) / cycleTime;
+ELSE
+    ADSLOGSTR(msgCtrlMask:=ADSLOG_MSGTYPE_ERROR, msgFmtStr:='Enter a cycletime > 0!', strArg:='');
+END_IF
 IF _differentialPartLimit = 0 OR _deltaError <= _differentialPartLimit THEN
     _differentialPart := _deltaError * parameters.Kd;
 END_IF

@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.11">
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
   <POU Name="Pid_Tests" Id="{d37e3a2d-290f-492c-9ef6-af8dd98f69e3}" SpecialFunc="None">
     <Declaration><![CDATA[FUNCTION_BLOCK Pid_Tests EXTENDS FB_TestSuite
 VAR
@@ -13,8 +13,85 @@ OnlyIntegralPart();
 OnlyIntegralPartSetPreviousIntegralPartBefore();
 OnlyDifferentialPart();
 OnlyDifferentialPartWithDiffLimit();
+DifferentCycleTimesSameOutputIntegralPart();
+DifferentCycleTimesSameOutputDifferentialPart();
+DivideByZeroCycleTimeCheck();
 ]]></ST>
     </Implementation>
+    <Method Name="DifferentCycleTimesSameOutputDifferentialPart" Id="{21fb58cc-afc4-4d4c-bfea-12ac57e21910}">
+      <Declaration><![CDATA[METHOD DifferentCycleTimesSameOutputDifferentialPart
+VAR_INST
+    Pfast : Pid;
+    Pslow : Pid;
+    parameters : PidParameters := (Kd:=1);
+    i : INT;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[TEST('DifferentCycleTimesSameOutputDifferentialPart');
+
+FOR i := 1 TO 4 DO
+    Pfast(setpoint:=3, actual:=2 + i * 0.25, parameters:=parameters, cycleTime:=1);
+END_FOR
+
+FOR i := 1 TO 2 DO
+    Pslow(setpoint:=3, actual:=2 + i * 0.5, parameters:=parameters, cycleTime:=2);
+END_FOR
+
+AssertEquals_LREAL(
+    Expected:=Pslow.Out,
+    Actual:=Pfast.Out,
+    Delta:=delta,
+    Message:='Slow and fast pid should give the same result'
+);
+
+TcUnit.TEST_FINISHED();
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="DifferentCycleTimesSameOutputIntegralPart" Id="{07c9ad63-6800-4d52-804c-298e0cae3bb9}">
+      <Declaration><![CDATA[METHOD DifferentCycleTimesSameOutputIntegralPart
+VAR_INST
+    Pfast : Pid;
+    Pslow : Pid;
+    parameters : PidParameters := (Ki:=1);
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[TEST('DifferentCycleTimesSameOutputIntegralPart');
+
+Pfast(setpoint:=3, actual:=2, parameters:=parameters, cycleTime:=1);
+Pfast(setpoint:=3, actual:=2, parameters:=parameters, cycleTime:=1);
+Pslow(setpoint:=3, actual:=2, parameters:=parameters, cycleTime:=2);
+
+AssertEquals_LREAL(
+    Expected:=Pslow.Out,
+    Actual:=Pfast.Out,
+    Delta:=delta,
+    Message:='Slow and fast pid should give the same result'
+);
+
+TcUnit.TEST_FINISHED();
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="DivideByZeroCycleTimeCheck" Id="{cc32b3cb-eb63-4350-bd0f-4654057ba87c}">
+      <Declaration><![CDATA[METHOD DivideByZeroCycleTimeCheck
+VAR_INST
+    P : Pid;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[TcUnit.TEST('DivideByZeroCycleTimeCheck');
+
+P(cycleTime:=0);
+
+//Should not cause an exception
+
+TcUnit.TEST_FINISHED();
+]]></ST>
+      </Implementation>
+    </Method>
     <Method Name="OnlyDifferentialPart" Id="{4f99075d-a13f-4f18-8a15-c8ddba8e5a52}">
       <Declaration><![CDATA[METHOD OnlyDifferentialPart
 VAR_INST
@@ -79,7 +156,7 @@ TcUnit.TEST_FINISHED();
     <Method Name="OnlyIntegralPart" Id="{5d97b5ea-7ca7-495f-b7ce-68e585bdb9a4}">
       <Declaration><![CDATA[METHOD OnlyIntegralPart
 VAR_INST
-    P : Pid;
+    P : Pid := (cycleTime:=1);
     parameters : PidParameters := (Ki:=0.25);
 END_VAR
 ]]></Declaration>
@@ -109,7 +186,7 @@ TcUnit.TEST_FINISHED();
     <Method Name="OnlyIntegralPartSetPreviousIntegralPartBefore" Id="{e14023e9-bbe5-4ab4-b516-86db5b89a50c}">
       <Declaration><![CDATA[METHOD OnlyIntegralPartSetPreviousIntegralPartBefore
 VAR_INST
-    P : Pid;
+    P : Pid := (cycleTime:=1);
     parameters : PidParameters := (Ki:=0.25);
 END_VAR
 ]]></Declaration>
