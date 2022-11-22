@@ -44,7 +44,13 @@
     <Folder Include="Tests" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Derivative.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="InfiniteImpulseResponse.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="IOut.TcIO">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Millisecond.TcDUT">
@@ -60,6 +66,9 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="PlcTask.TcTTO">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Tests\Derivative_Tests.TcPOU">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Tests\InfiniteImpulseResponse_Tests.TcPOU">

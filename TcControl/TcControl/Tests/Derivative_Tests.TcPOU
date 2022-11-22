@@ -1,0 +1,50 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
+  <POU Name="Derivative_Tests" Id="{139527eb-4a04-441d-876d-9180e432d73f}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION_BLOCK Derivative_Tests EXTENDS FB_TestSuite
+VAR
+    delta : LREAL := 1e-5;
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[FirstCallDerivateiveIsZero();
+CalculatederivateOnSecondCall();
+]]></ST>
+    </Implementation>
+    <Method Name="CalculatederivateOnSecondCall" Id="{5ea7d5fb-18e0-44e8-b58f-e05af34347f1}">
+      <Declaration><![CDATA[METHOD CalculatederivateOnSecondCall
+VAR_INST
+    d : Derivative;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[TEST('CalculatederivateOnSecondCall');
+
+d(value:=1, deltatime:=1);
+d(value:=2, deltatime:=1);
+
+AssertEquals_LREAL(Expected:=1, Actual:=d.Out, Delta:=delta, Message:='derivative not correct');
+
+TcUnit.TEST_FINISHED();
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="FirstCallDerivateiveIsZero" Id="{7d6d5b14-8a46-4c91-ad29-b972df5220ba}">
+      <Declaration><![CDATA[METHOD FirstCallDerivateiveIsZero
+VAR_INST
+    d : Derivative;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[TEST('FirstCallDerivateiveIsZero');
+
+d(value:=1, deltatime:=1);
+
+AssertEquals_LREAL(Expected:=0, Actual:=d.Out, Delta:=delta, Message:='derivative not correct');
+
+TcUnit.TEST_FINISHED();
+]]></ST>
+      </Implementation>
+    </Method>
+  </POU>
+</TcPlcObject>

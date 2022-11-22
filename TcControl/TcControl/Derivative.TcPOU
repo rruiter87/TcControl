@@ -1,0 +1,36 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
+  <POU Name="Derivative" Id="{c4c45863-dcb9-41dd-861c-a4ff025142ae}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION_BLOCK Derivative IMPLEMENTS IOut
+VAR_INPUT
+    value : LREAL;
+    deltaTime : Millisecond;
+END_VAR
+VAR
+    _out : LREAL;
+    _previousValue : LREAL;
+    _firstCall : BOOL := TRUE;
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[IF _firstCall THEN
+    _firstCall := FALSE;
+ELSE
+    _out := (value - _previousValue) / deltaTime;
+END_IF
+_previousValue := value;
+]]></ST>
+    </Implementation>
+    <Property Name="Out" Id="{a6db672b-0b34-404c-9e80-4de00c4fcb64}">
+      <Declaration><![CDATA[PROPERTY Out : LREAL
+]]></Declaration>
+      <Get Name="Get" Id="{d27e6734-47dd-49be-9122-f5b93be0d613}">
+        <Declaration><![CDATA[]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[Out := _out;
+]]></ST>
+        </Implementation>
+      </Get>
+    </Property>
+  </POU>
+</TcPlcObject>
