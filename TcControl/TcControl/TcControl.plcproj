@@ -47,6 +47,9 @@
     <Compile Include="Derivative.TcPOU">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="InstancePath.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="InfiniteImpulseResponse.TcPOU">
       <SubType>Code</SubType>
     </Compile>
@@ -66,6 +69,9 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="PlcTask.TcTTO">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="RemoveProjectName.TcPOU">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Tests\Derivative_Tests.TcPOU">

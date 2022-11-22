@@ -2,15 +2,12 @@
 <TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
   <POU Name="Derivative" Id="{c4c45863-dcb9-41dd-861c-a4ff025142ae}" SpecialFunc="None">
     <Declaration><![CDATA[{attribute 'reflection'}
-FUNCTION_BLOCK Derivative IMPLEMENTS IOut
+FUNCTION_BLOCK Derivative EXTENDS InstancePath IMPLEMENTS IOut
 VAR_INPUT
     value : LREAL;
     deltaTime : Millisecond;
 END_VAR
 VAR
-    {attribute 'instance-path'}
-    {attribute 'noinit'}
-    _path : Tc2_System.T_MaxString;
     _out : LREAL;
     _previousValue : LREAL;
     _firstCall : BOOL := TRUE;

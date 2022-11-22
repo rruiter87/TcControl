@@ -1,0 +1,22 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
+  <POU Name="RemoveProjectName" Id="{9e045289-5467-4cb5-a39f-59481ea62337}" SpecialFunc="None">
+    <Declaration><![CDATA[(* Removes project name from string
+Source: https://kassymdorsel.com/blog/2021-01-06-automatic-instance-path-for-error-log-identification
+*)
+FUNCTION RemoveProjectName : T_MaxString
+VAR_INPUT
+    path : T_MaxString;
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[RemoveProjectName := DELETE(
+    path,
+    LEN(TwinCAT_SystemInfoVarList._AppInfo.ProjectName) +
+        FIND(path, TwinCAT_SystemInfoVarList._AppInfo.ProjectName),
+    1
+);
+]]></ST>
+    </Implementation>
+  </POU>
+</TcPlcObject>

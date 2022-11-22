@@ -1,0 +1,31 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
+  <POU Name="InstancePath" Id="{04f96f26-f320-4875-845f-a8750907bc4d}" SpecialFunc="None">
+    <Declaration><![CDATA[(* Get the instance path of a function block
+Source: https://kassymdorsel.com/blog/2021-01-06-automatic-instance-path-for-error-log-identification
+*)
+{attribute 'reflection'}
+FUNCTION_BLOCK InstancePath
+VAR
+    {attribute 'instance-path'}
+    {attribute 'noinit'}
+    _path : Tc2_System.T_MaxString;
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[]]></ST>
+    </Implementation>
+    <Method Name="FB_init" Id="{ac29e947-9a3c-46de-b0b3-a33499d5109c}">
+      <Declaration><![CDATA[METHOD FB_init : BOOL
+VAR_INPUT
+    bInitRetains : BOOL; // if TRUE, the retain variables are initialized (warm start / cold start)
+    bInCopyCode : BOOL; // if TRUE, the instance afterwards gets moved into the copy code (online change)
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[_path := RemoveProjectName(_path);
+]]></ST>
+      </Implementation>
+    </Method>
+  </POU>
+</TcPlcObject>
