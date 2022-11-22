@@ -10,8 +10,46 @@ END_VAR
       <ST><![CDATA[OnlyMeasurementShouldReturnSameValue();
 TakeDerivativeOfMeasurement();
 ApplyIirFilterOnSignal();
+ApplyDiffAndIirOnSignal();
 ]]></ST>
     </Implementation>
+    <Method Name="ApplyDiffAndIirOnSignal" Id="{e658be32-2ccf-4a4e-929b-8dbb4a670fb5}">
+      <Declaration><![CDATA[METHOD ApplyDiffAndIirOnSignal
+VAR_INST
+    signal : Signal;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[TEST('ApplyDiffAndIirOnSignal');
+
+signal.Update(value:=7).Differentiate(deltaTime:=1).Iir(decay:=0.5);
+AssertEquals_LREAL(
+    Expected:=0,
+    Actual:=signal.Out,
+    Delta:=delta,
+    Message:='Output step 1 not correct'
+);
+
+signal.Update(value:=8).Differentiate(deltaTime:=1).Iir(decay:=0.5);
+AssertEquals_LREAL(
+    Expected:=0.5,
+    Actual:=signal.Out,
+    Delta:=delta,
+    Message:='Output step 2 not correct'
+);
+
+signal.Update(value:=9).Differentiate(deltaTime:=1).Iir(decay:=0.5);
+AssertEquals_LREAL(
+    Expected:=0.75,
+    Actual:=signal.Out,
+    Delta:=delta,
+    Message:='Output step 3 not correct'
+);
+
+TcUnit.TEST_FINISHED();
+]]></ST>
+      </Implementation>
+    </Method>
     <Method Name="ApplyIirFilterOnSignal" Id="{323ff59c-a918-4020-b67e-8db4e2ccd0a4}">
       <Declaration><![CDATA[METHOD ApplyIirFilterOnSignal
 VAR_INST
