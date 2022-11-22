@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.11">
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
   <POU Name="Pid" Id="{da73802b-2471-4be1-ae33-77c4e2eb36c6}" SpecialFunc="None">
     <Declaration><![CDATA[FUNCTION_BLOCK Pid IMPLEMENTS IPid
 VAR_INPUT
@@ -37,7 +37,9 @@ _out := _proportionalPart + _integralPart + _differentialPart;
 ]]></ST>
     </Implementation>
     <Property Name="DifferentialPartLimit" Id="{0e5fc49d-15ed-446b-b5c4-b8f8bc7054d6}">
-      <Declaration><![CDATA[PROPERTY DifferentialPartLimit : LREAL
+      <Declaration><![CDATA[(* Limit the differential part. Convenient when the output is calculated for the first time.
+The limit prevents it from having a very large value after the first call.*)
+PROPERTY DifferentialPartLimit : LREAL
 ]]></Declaration>
       <Set Name="Set" Id="{ebaea50d-eb7b-45f8-9ebf-1ac59fe2b99d}">
         <Declaration><![CDATA[]]></Declaration>
@@ -59,7 +61,8 @@ _out := _proportionalPart + _integralPart + _differentialPart;
       </Get>
     </Property>
     <Property Name="PreviousIntegralPart" Id="{84c7dc6b-7c17-4d37-ad09-62b2cacd0ffa}">
-      <Declaration><![CDATA[PROPERTY PreviousIntegralPart : LREAL
+      <Declaration><![CDATA[(* Set previous integral part on first call. Prevents integrator term for needing to build up. *)
+PROPERTY PreviousIntegralPart : LREAL
 ]]></Declaration>
       <Set Name="Set" Id="{f9f66342-ded5-4cda-8f18-8e494b23a987}">
         <Declaration><![CDATA[]]></Declaration>
