@@ -9,6 +9,7 @@ END_VAR
     <Implementation>
       <ST><![CDATA[FirstCallDerivateiveIsZero();
 CalculatederivateOnSecondCall();
+PreventZeroDivisionException();
 ]]></ST>
     </Implementation>
     <Method Name="CalculatederivateOnSecondCall" Id="{5ea7d5fb-18e0-44e8-b58f-e05af34347f1}">
@@ -41,6 +42,26 @@ END_VAR
 d(value:=1, deltatime:=1);
 
 AssertEquals_LREAL(Expected:=0, Actual:=d.Out, Delta:=delta, Message:='derivative not correct');
+
+TcUnit.TEST_FINISHED();
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="PreventZeroDivisionException" Id="{65ee4118-9aee-479a-89a1-0bf23011e00d}">
+      <Declaration><![CDATA[METHOD PreventZeroDivisionException
+VAR_INST
+    d : Derivative;
+    path : STRING;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[TEST('PreventZeroDivisionException');
+
+d(deltatime:=0);
+d(deltatime:=0);
+
+// should not crash plc
+path := d._path;
 
 TcUnit.TEST_FINISHED();
 ]]></ST>
