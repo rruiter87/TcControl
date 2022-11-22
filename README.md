@@ -82,7 +82,7 @@ You can define your own controller, as long as it implements the `IController` i
 
 ## Other function blocks
 
-The function blocks used in `Signal` can also be used as stand alone function blocks. The following function blocks are defined.
+The function blocks used in `Signal` can also be used as stand-alone function blocks. The following function blocks are defined.
 
 - `Derivative`: Take derivative of a value.
 - `InfiniteImpulseResponse`: Infinite impulse response (IIR) filter.
