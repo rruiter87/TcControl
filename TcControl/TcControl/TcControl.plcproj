@@ -83,7 +83,7 @@
     <Compile Include="Tests\InfiniteImpulseResponse_Tests.TcPOU">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Tests\Measurement_Tests.TcPOU">
+    <Compile Include="Tests\Signal_Tests.TcPOU">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Tests\Pid_Tests.TcPOU">

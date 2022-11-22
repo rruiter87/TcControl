@@ -6,7 +6,7 @@ VAR
     pidTests : Pid_Tests;
     infiniteImpluseResponseTests : InfiniteImpulseResponse_Tests;
     derivativeTests : Derivative_Tests;
-    measurementTests : Measurement_Tests;
+    signalTests : Signal_Tests;
 END_VAR
 ]]></Declaration>
     <Implementation>
