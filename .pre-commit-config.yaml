@@ -1,15 +1,12 @@
 exclude: '.*\.(resx|Designer.cs|xti|tcscopex|tsproj|plcproj)'
 repos:
-  - repo: https://github.com/pcdshub/pre-commit-hooks
-    rev: v1.1.0
+  - repo: https://github.com/rruiter87/pre-commit-hooks/
+    rev: eed2a917b83b75e46210d49a66f988dc7e720d68
     hooks:
-      # Replaces all leading tabs with spaces
       - id: twincat-leading-tabs-remover
-      # Removes line ids. See point 4 of the link for why you don't need them
-      # https://cookncode.com/twincat/2021/06/07/tc-source-control-tips#2-creating-independent-files
       - id: twincat-lineids-remover
-      # Formats .tmc and .tpy files
       - id: twincat-xml-format
+      - id: check-fixed-library-versions
   - repo: https://github.com/pre-commit/pre-commit-hooks
     rev: v4.3.0
     hooks:
