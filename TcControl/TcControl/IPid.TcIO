@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.11">
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
   <Itf Name="IPid" Id="{8da9abfe-226e-4374-8b8c-042275335040}">
     <Declaration><![CDATA[INTERFACE IPid
 ]]></Declaration>
@@ -8,12 +8,6 @@
       <Set Name="Set" Id="{fb1af68a-7410-4ee6-a26f-da9cb38e3c8d}">
         <Declaration><![CDATA[]]></Declaration>
       </Set>
-    </Property>
-    <Property Name="Out" Id="{64068ae4-68b9-44bb-8ed8-fbb18b8f1488}">
-      <Declaration><![CDATA[PROPERTY Out : LREAL]]></Declaration>
-      <Get Name="Get" Id="{9422e15c-8b73-4f5f-a681-6176ebc22db6}">
-        <Declaration><![CDATA[]]></Declaration>
-      </Get>
     </Property>
     <Property Name="PreviousIntegralPart" Id="{a71b62c7-c254-4773-b8fa-48b59422a176}">
       <Declaration><![CDATA[PROPERTY PreviousIntegralPart : LREAL]]></Declaration>

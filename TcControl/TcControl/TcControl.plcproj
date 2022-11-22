@@ -16,7 +16,7 @@
     <Implicit_Jitter_Distribution>{9330e18b-9c97-4e55-91ab-efd4863c853f}</Implicit_Jitter_Distribution>
     <LibraryReferences>{3d702260-1252-42ef-a1bc-4ecc9ed638d9}</LibraryReferences>
     <Company>inspire AG</Company>
-    <Released>true</Released>
+    <Released>false</Released>
     <Title>TcControl</Title>
     <ProjectVersion>0.3.0</ProjectVersion>
     <Author>Roald Ruiter</Author>
@@ -44,7 +44,13 @@
     <Folder Include="Tests" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Derivative.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="InfiniteImpulseResponse.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="IOut.TcIO">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Millisecond.TcDUT">
@@ -60,6 +66,9 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="PlcTask.TcTTO">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Tests\Derivative_Tests.TcPOU">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Tests\InfiniteImpulseResponse_Tests.TcPOU">

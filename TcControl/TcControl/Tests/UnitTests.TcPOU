@@ -1,10 +1,11 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.11">
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
   <POU Name="UnitTests" Id="{dde40bb1-b2ba-43e6-8c92-b0dedcf8ee20}" SpecialFunc="None">
     <Declaration><![CDATA[PROGRAM UnitTests
 VAR
     pidTests : Pid_Tests;
     infiniteImpluseResponseTests : InfiniteImpulseResponse_Tests;
+    derivativeTests : Derivative_Tests;
 END_VAR
 ]]></Declaration>
     <Implementation>

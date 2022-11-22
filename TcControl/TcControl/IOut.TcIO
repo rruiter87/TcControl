@@ -1,0 +1,13 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
+  <Itf Name="IOut" Id="{1f5a0544-bc51-4807-af84-0f40e0d77d06}">
+    <Declaration><![CDATA[INTERFACE IOut
+]]></Declaration>
+    <Property Name="Out" Id="{200fa39f-bcde-49b7-acdb-b61231071a60}">
+      <Declaration><![CDATA[PROPERTY Out : LREAL]]></Declaration>
+      <Get Name="Get" Id="{9a0cb42f-bf48-45f2-aee0-dae6a1a41b34}">
+        <Declaration><![CDATA[]]></Declaration>
+      </Get>
+    </Property>
+  </Itf>
+</TcPlcObject>
