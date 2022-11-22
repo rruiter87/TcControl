@@ -18,7 +18,7 @@
     <Company>inspire AG</Company>
     <Released>false</Released>
     <Title>TcControl</Title>
-    <ProjectVersion>0.3.0</ProjectVersion>
+    <ProjectVersion>0.3.1</ProjectVersion>
     <Author>Roald Ruiter</Author>
     <Description>PID control function blocks</Description>
   </PropertyGroup>
@@ -47,6 +47,15 @@
     <Compile Include="Derivative.TcPOU">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="IBaseSignal.TcIO">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="IController.TcIO">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="IDifferentiable.TcIO">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="InstancePath.TcPOU">
       <SubType>Code</SubType>
     </Compile>
@@ -56,13 +65,16 @@
     <Compile Include="IOut.TcIO">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="ISignal.TcIO">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Signal.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Millisecond.TcDUT">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Pid.TcPOU">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="IPid.TcIO">
+    <Compile Include="PidController.TcPOU">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="PidParameters.TcDUT">
@@ -78,6 +90,9 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Tests\InfiniteImpulseResponse_Tests.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Tests\Signal_Tests.TcPOU">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Tests\Pid_Tests.TcPOU">

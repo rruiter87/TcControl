@@ -1,10 +1,8 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
-  <POU Name="Pid" Id="{da73802b-2471-4be1-ae33-77c4e2eb36c6}" SpecialFunc="None">
-    <Declaration><![CDATA[FUNCTION_BLOCK Pid EXTENDS InstancePath IMPLEMENTS IPid, IOut
+  <POU Name="PidController" Id="{da73802b-2471-4be1-ae33-77c4e2eb36c6}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION_BLOCK PidController EXTENDS InstancePath IMPLEMENTS IController, IOut
 VAR_INPUT
-    setpoint : LREAL;
-    actual : LREAL;
     parameters : PidParameters;
     cycleTime : Millisecond := 1;
 END_VAR
@@ -21,29 +19,7 @@ VAR
 END_VAR
 ]]></Declaration>
     <Implementation>
-      <ST><![CDATA[_error := setpoint - actual;
-
-_proportionalPart := parameters.Kp * _error;
-
-_integralPart := _previousIntegralPart + parameters.Ki * _error * cycleTime;
-_previousIntegralPart := _integralPart;
-
-IF cycleTime <> 0 THEN
-    _deltaError := (_error - _previousError) / cycleTime;
-ELSE
-    ADSLOGSTR(
-        msgCtrlMask:=ADSLOG_MSGTYPE_ERROR,
-        msgFmtStr:='%s: Enter a cycletime > 0!',
-        strArg:=_path
-    );
-END_IF
-IF _differentialPartLimit = 0 OR _deltaError <= _differentialPartLimit THEN
-    _differentialPart := _deltaError * parameters.Kd;
-END_IF
-_previousError := _error;
-
-_out := _proportionalPart + _integralPart + _differentialPart;
-]]></ST>
+      <ST><![CDATA[]]></ST>
     </Implementation>
     <Property Name="DifferentialPartLimit" Id="{0e5fc49d-15ed-446b-b5c4-b8f8bc7054d6}">
       <Declaration><![CDATA[(* Limit the differential part. Convenient when the output is calculated for the first time.
@@ -81,5 +57,38 @@ PROPERTY PreviousIntegralPart : LREAL
         </Implementation>
       </Set>
     </Property>
+    <Method Name="Update" Id="{0846af4f-7650-4534-bc93-e3fdd529f31e}">
+      <Declaration><![CDATA[METHOD Update : IOut
+VAR_INPUT
+    setpoint : LREAL;
+    actual : LREAL;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[_error := setpoint - actual;
+
+_proportionalPart := parameters.Kp * _error;
+
+_integralPart := _previousIntegralPart + parameters.Ki * _error * cycleTime;
+_previousIntegralPart := _integralPart;
+
+IF cycleTime <> 0 THEN
+    _deltaError := (_error - _previousError) / cycleTime;
+ELSE
+    ADSLOGSTR(
+        msgCtrlMask:=ADSLOG_MSGTYPE_ERROR,
+        msgFmtStr:='%s: Enter a cycletime > 0!',
+        strArg:=_path
+    );
+END_IF
+IF _differentialPartLimit = 0 OR _deltaError <= _differentialPartLimit THEN
+    _differentialPart := _deltaError * parameters.Kd;
+END_IF
+_previousError := _error;
+
+_out := _proportionalPart + _integralPart + _differentialPart;
+]]></ST>
+      </Implementation>
+    </Method>
   </POU>
 </TcPlcObject>

@@ -21,8 +21,8 @@ DivideByZeroCycleTimeCheck();
     <Method Name="DifferentCycleTimesSameOutputDifferentialPart" Id="{21fb58cc-afc4-4d4c-bfea-12ac57e21910}">
       <Declaration><![CDATA[METHOD DifferentCycleTimesSameOutputDifferentialPart
 VAR_INST
-    Pfast : Pid;
-    Pslow : Pid;
+    Pfast : PidController;
+    Pslow : PidController;
     parameters : PidParameters := (Kd:=1);
     i : INT;
 END_VAR
@@ -30,12 +30,14 @@ END_VAR
       <Implementation>
         <ST><![CDATA[TEST('DifferentCycleTimesSameOutputDifferentialPart');
 
+Pfast(parameters:=parameters, cycleTime:=1);
 FOR i := 1 TO 4 DO
-    Pfast(setpoint:=3, actual:=2 + i * 0.25, parameters:=parameters, cycleTime:=1);
+    Pfast.Update(setpoint:=3, actual:=2 + i * 0.25);
 END_FOR
 
+Pslow(parameters:=parameters, cycleTime:=2);
 FOR i := 1 TO 2 DO
-    Pslow(setpoint:=3, actual:=2 + i * 0.5, parameters:=parameters, cycleTime:=2);
+    Pslow.Update(setpoint:=3, actual:=2 + i * 0.5);
 END_FOR
 
 AssertEquals_LREAL(
@@ -52,17 +54,19 @@ TcUnit.TEST_FINISHED();
     <Method Name="DifferentCycleTimesSameOutputIntegralPart" Id="{07c9ad63-6800-4d52-804c-298e0cae3bb9}">
       <Declaration><![CDATA[METHOD DifferentCycleTimesSameOutputIntegralPart
 VAR_INST
-    Pfast : Pid;
-    Pslow : Pid;
+    Pfast : PidController;
+    Pslow : PidController;
     parameters : PidParameters := (Ki:=1);
 END_VAR
 ]]></Declaration>
       <Implementation>
         <ST><![CDATA[TEST('DifferentCycleTimesSameOutputIntegralPart');
 
-Pfast(setpoint:=3, actual:=2, parameters:=parameters, cycleTime:=1);
-Pfast(setpoint:=3, actual:=2, parameters:=parameters, cycleTime:=1);
-Pslow(setpoint:=3, actual:=2, parameters:=parameters, cycleTime:=2);
+Pfast(parameters:=parameters, cycleTime:=1);
+Pfast.Update(setpoint:=3, actual:=2);
+Pfast.Update(setpoint:=3, actual:=2);
+Pslow(parameters:=parameters, cycleTime:=2);
+Pslow.Update(setpoint:=3, actual:=2);
 
 AssertEquals_LREAL(
     Expected:=Pslow.Out,
@@ -78,13 +82,14 @@ TcUnit.TEST_FINISHED();
     <Method Name="DivideByZeroCycleTimeCheck" Id="{cc32b3cb-eb63-4350-bd0f-4654057ba87c}">
       <Declaration><![CDATA[METHOD DivideByZeroCycleTimeCheck
 VAR_INST
-    P : Pid;
+    P : PidController;
 END_VAR
 ]]></Declaration>
       <Implementation>
         <ST><![CDATA[TcUnit.TEST('DivideByZeroCycleTimeCheck');
 
 P(cycleTime:=0);
+P.Update(setpoint:=1, actual:=1);
 
 //Should not cause an exception
 
@@ -95,14 +100,15 @@ TcUnit.TEST_FINISHED();
     <Method Name="OnlyDifferentialPart" Id="{4f99075d-a13f-4f18-8a15-c8ddba8e5a52}">
       <Declaration><![CDATA[METHOD OnlyDifferentialPart
 VAR_INST
-    P : Pid;
+    P : PidController;
     parameters : PidParameters := (Kd:=0.01);
 END_VAR
 ]]></Declaration>
       <Implementation>
         <ST><![CDATA[TcUnit.TEST('OnlyDifferentialPart');
 
-P(setpoint:=10, actual:=6, parameters:=parameters);
+P(parameters:=parameters);
+P.Update(setpoint:=10, actual:=6);
 AssertEquals_LREAL(
     Expected:=0.04,
     Actual:=P.Out,
@@ -110,7 +116,7 @@ AssertEquals_LREAL(
     Message:='Pid output run 1 not correct'
 );
 
-P(setpoint:=10, actual:=8, parameters:=parameters);
+P.Update(setpoint:=10, actual:=8);
 AssertEquals_LREAL(
     Expected:=-0.02,
     Actual:=P.Out,
@@ -125,7 +131,7 @@ TcUnit.TEST_FINISHED();
     <Method Name="OnlyDifferentialPartWithDiffLimit" Id="{241d286d-fea2-4eb4-8a87-6d9bdc37a17d}">
       <Declaration><![CDATA[METHOD OnlyDifferentialPartWithDiffLimit
 VAR_INST
-    P : Pid;
+    P : PidController;
     parameters : PidParameters := (Kd:=0.01);
 END_VAR
 ]]></Declaration>
@@ -133,7 +139,8 @@ END_VAR
         <ST><![CDATA[TcUnit.TEST('OnlyDifferentialPartWithDiffLimit');
 
 P.DifferentialPartLimit := 3;
-P(setpoint:=10, actual:=6, parameters:=parameters);
+P(parameters:=parameters);
+P.Update(setpoint:=10, actual:=6);
 AssertEquals_LREAL(
     Expected:=0,
     Actual:=P.Out,
@@ -141,7 +148,7 @@ AssertEquals_LREAL(
     Message:='Pid output run 1 not correct'
 );
 
-P(setpoint:=10, actual:=8, parameters:=parameters);
+P.Update(setpoint:=10, actual:=8);
 AssertEquals_LREAL(
     Expected:=-0.02,
     Actual:=P.Out,
@@ -156,14 +163,15 @@ TcUnit.TEST_FINISHED();
     <Method Name="OnlyIntegralPart" Id="{5d97b5ea-7ca7-495f-b7ce-68e585bdb9a4}">
       <Declaration><![CDATA[METHOD OnlyIntegralPart
 VAR_INST
-    P : Pid := (cycleTime:=1);
+    P : PidController := (cycleTime:=1);
     parameters : PidParameters := (Ki:=0.25);
 END_VAR
 ]]></Declaration>
       <Implementation>
         <ST><![CDATA[TcUnit.TEST('OnlyIntegralPart');
 
-P(setpoint:=10, actual:=6, parameters:=parameters);
+P(parameters:=parameters);
+P.Update(setpoint:=10, actual:=6);
 AssertEquals_LREAL(
     Expected:=1,
     Actual:=P.Out,
@@ -171,7 +179,7 @@ AssertEquals_LREAL(
     Message:='Pid output run 1 not correct'
 );
 
-P(setpoint:=10, actual:=8, parameters:=parameters);
+P.Update(setpoint:=10, actual:=8);
 AssertEquals_LREAL(
     Expected:=1.5,
     Actual:=P.Out,
@@ -186,7 +194,7 @@ TcUnit.TEST_FINISHED();
     <Method Name="OnlyIntegralPartSetPreviousIntegralPartBefore" Id="{e14023e9-bbe5-4ab4-b516-86db5b89a50c}">
       <Declaration><![CDATA[METHOD OnlyIntegralPartSetPreviousIntegralPartBefore
 VAR_INST
-    P : Pid := (cycleTime:=1);
+    P : PidController := (cycleTime:=1);
     parameters : PidParameters := (Ki:=0.25);
 END_VAR
 ]]></Declaration>
@@ -194,8 +202,8 @@ END_VAR
         <ST><![CDATA[TcUnit.TEST('OnlyIntegralPartSetPreviousIntegralPartBefore');
 
 P.PreviousIntegralPart := 3;
-
-P(setpoint:=10, actual:=6, parameters:=parameters);
+P(parameters:=parameters);
+P.Update(setpoint:=10, actual:=6);
 AssertEquals_LREAL(
     Expected:=4,
     Actual:=P.Out,
@@ -203,7 +211,7 @@ AssertEquals_LREAL(
     Message:='Pid output run 1 not correct'
 );
 
-P(setpoint:=10, actual:=8, parameters:=parameters);
+P.Update(setpoint:=10, actual:=8);
 AssertEquals_LREAL(
     Expected:=4.5,
     Actual:=P.Out,
@@ -218,14 +226,15 @@ TcUnit.TEST_FINISHED();
     <Method Name="OnlyProportionalPart" Id="{4180392b-050f-4fed-a265-d9a44e45b893}">
       <Declaration><![CDATA[METHOD OnlyProportionalPart
 VAR_INST
-    P : Pid;
+    P : PidController;
     parameters : PidParameters := (Kp:=5);
 END_VAR
 ]]></Declaration>
       <Implementation>
         <ST><![CDATA[TcUnit.TEST('OnlyProportionalPart');
 
-P(setpoint:=10, actual:=5, parameters:=parameters);
+P(parameters:=parameters);
+P.Update(setpoint:=10, actual:=5);
 
 AssertEquals_LREAL(Expected:=25, Actual:=P.Out, Delta:=delta, Message:='Pid output not correct');
 
@@ -236,14 +245,15 @@ TcUnit.TEST_FINISHED();
     <Method Name="OnlyPropotionalPartRunTwiceWithDifferentInputs" Id="{1d265881-ea1f-4b87-98ee-c292edfec96c}">
       <Declaration><![CDATA[METHOD OnlyPropotionalPartRunTwiceWithDifferentInputs
 VAR_INST
-    P : Pid;
+    P : PidController;
     parameters : PidParameters := (Kp:=2);
 END_VAR
 ]]></Declaration>
       <Implementation>
         <ST><![CDATA[TcUnit.TEST('OnlyPropotionalPartRunTwiceWithDifferentInputs');
 
-P(setpoint:=3, actual:=4.5, parameters:=parameters);
+P(parameters:=parameters);
+P.Update(setpoint:=3, actual:=4.5);
 
 AssertEquals_LREAL(
     Expected:=-3,
@@ -252,7 +262,7 @@ AssertEquals_LREAL(
     Message:='Pid output after run 1 not correct'
 );
 
-P(setpoint:=-8, actual:=-6, parameters:=parameters);
+P.Update(setpoint:=-8, actual:=-6);
 
 AssertEquals_LREAL(
     Expected:=-4,

@@ -1,0 +1,15 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
+  <Itf Name="IController" Id="{6d4eca49-a523-4b77-8ac2-546b7813c75c}">
+    <Declaration><![CDATA[INTERFACE IController EXTENDS IOut
+]]></Declaration>
+    <Method Name="Update" Id="{98645dea-5ead-4697-a969-ccba5550c9ef}">
+      <Declaration><![CDATA[METHOD Update : IOut
+VAR_INPUT
+    setpoint : LREAL;
+    actual : LREAL;
+END_VAR
+]]></Declaration>
+    </Method>
+  </Itf>
+</TcPlcObject>
