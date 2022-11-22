@@ -143,7 +143,16 @@ AssertEquals_LREAL(
     Expected:=2.75,
     Actual:=_signal.Out,
     Delta:=delta,
-    Message:='Pid output not correct after 1 cycle'
+    Message:='Pid output not correct after cycle 1'
+);
+
+_signal.Update(3.5).Control(setpoint:=4);
+
+AssertEquals_LREAL(
+    Expected:=1.125,
+    Actual:=_signal.Out,
+    Delta:=delta,
+    Message:='Pid output not correct after cycle 2'
 );
 
 TcUnit.TEST_FINISHED();
