@@ -71,7 +71,7 @@
     <Compile Include="Millisecond.TcDUT">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Pid.TcPOU">
+    <Compile Include="PidController.TcPOU">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="IPid.TcIO">

@@ -3,12 +3,10 @@
   <POU Name="Signal" Id="{d5e65a98-c59a-40a4-8e08-14b2a0104701}" SpecialFunc="None">
     <Declaration><![CDATA[FUNCTION_BLOCK Signal IMPLEMENTS IBaseSignal, IDifferentiable, ISignal
 VAR
-    {attribute 'hide'}
     _out : LREAL;
-    {attribute 'hide'}
     _derivative : Derivative;
-    {attribute 'hide'}
     _iir : InfiniteImpulseResponse;
+    _pid : PidController;
 END_VAR
 ]]></Declaration>
     <Implementation>
@@ -51,6 +49,21 @@ Iir := THIS^;
         </Implementation>
       </Get>
     </Property>
+    <Method Name="Pid" Id="{8dcf8e28-9ea3-49a8-b60f-0e1e6205b9e1}">
+      <Declaration><![CDATA[METHOD Pid : IOut
+VAR_INPUT
+    setpoint : LREAL;
+    parameters : PidParameters;
+    cycleTime : Millisecond;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[_pid(setpoint:=setpoint, actual:=THIS^.Out, parameters:=parameters, cycleTime:=cycleTime);
+_out := _pid.Out;
+Pid := THIS^;
+]]></ST>
+      </Implementation>
+    </Method>
     <Method Name="Update" Id="{b3adbb0a-1822-4d69-af6d-8f51c8ee0a1c}">
       <Declaration><![CDATA[METHOD Update : ISignal
 VAR_INPUT

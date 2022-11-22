@@ -10,6 +10,15 @@ VAR_INPUT
 END_VAR
 ]]></Declaration>
     </Method>
+    <Method Name="Pid" Id="{629d8683-07d5-4dca-9fe9-930d2298bc20}">
+      <Declaration><![CDATA[METHOD Pid: IOut
+VAR_INPUT
+    setpoint : LREAL;
+    parameters : PidParameters;
+    cycleTime : Millisecond;
+END_VAR
+]]></Declaration>
+    </Method>
     <Method Name="Update" Id="{a5b00a30-c45e-4d64-88f3-9feef6670dfc}">
       <Declaration><![CDATA[METHOD Update : ISignal
 VAR_INPUT

@@ -12,6 +12,7 @@ END_VAR
 TakeDerivativeOfMeasurement();
 ApplyIirFilterOnSignal();
 ApplyDiffAndIirOnSignal();
+TestPidController();
 ]]></ST>
     </Implementation>
     <Method Name="ApplyDiffAndIirOnSignal" Id="{e658be32-2ccf-4a4e-929b-8dbb4a670fb5}">
@@ -117,6 +118,29 @@ AssertEquals_LREAL(
     Actual:=actual,
     Delta:=delta,
     Message:='Derivative after second step not correct'
+);
+
+TcUnit.TEST_FINISHED();
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="TestPidController" Id="{850112d1-80c8-4fdf-a4eb-21633d4126b6}">
+      <Declaration><![CDATA[METHOD TestPidController
+VAR_INST
+    _signal : Signal;
+    parameters : PidParameters := (Kp:=2, Ki:=0.25, Kd:=0.5);
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[TEST('TestPidController');
+
+_signal.Update(3).Pid(setpoint:=4, parameters:=parameters, cycleTime:=1);
+
+AssertEquals_LREAL(
+    Expected:=2.75,
+    Actual:=_signal.Out,
+    Delta:=delta,
+    Message:='Pid output not correct after 1 cycle'
 );
 
 TcUnit.TEST_FINISHED();

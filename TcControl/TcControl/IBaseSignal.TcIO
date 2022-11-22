@@ -3,6 +3,15 @@
   <Itf Name="IBaseSignal" Id="{aeeffa15-e2d7-4163-9256-f2dfded0522d}">
     <Declaration><![CDATA[INTERFACE IBaseSignal EXTENDS IOut
 ]]></Declaration>
+    <Method Name="Pid" Id="{025969cc-e5f9-4512-b433-fecde6f7bba7}">
+      <Declaration><![CDATA[METHOD Pid : IOut
+VAR_INPUT
+    setpoint : LREAL;
+    parameters : PidParameters;
+    cycleTime : Millisecond;
+END_VAR
+]]></Declaration>
+    </Method>
     <Method Name="Update" Id="{f0eb471c-499e-499d-ae67-4a3bd890b28a}">
       <Declaration><![CDATA[METHOD Update : ISignal
 VAR_INPUT
