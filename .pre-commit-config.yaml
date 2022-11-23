@@ -1,4 +1,4 @@
-exclude: '.*\.(resx|Designer.cs|xti|tcscopex|tsproj|plcproj)'
+exclude: '.*\.(resx|Designer.cs|xti|tcscopex|tsproj)'
 repos:
   - repo: https://github.com/rruiter87/pre-commit-hooks/
     rev: eed2a917b83b75e46210d49a66f988dc7e720d68
