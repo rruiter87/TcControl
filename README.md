@@ -98,8 +98,8 @@ VAR
     derivative : Derivative;
 END_VAR
 
-derivative(value:=1, deltatime:=1); // d.Out = 0 (derivative is always 0 on the initial call)
-derivative(value:=2, deltatime:=1); // d.Out = 1
+derivative(value:=1, deltatime:=1); // derivative.Out = 0 (derivative is always 0 on the initial call)
+derivative(value:=2, deltatime:=1); // derivative.Out = 1
 ```
 
 See `Derivative_Tests` for more examples.
