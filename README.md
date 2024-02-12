@@ -1,6 +1,6 @@
 # TcControl
 
-TwinCAT library for PID control and filtering.
+TwinCAT library for PID control and signal filtering.
 
 ## Examples
 
