@@ -1,0 +1,7 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
+  <DUT Name="Millisecond" Id="{02e4c6ff-f486-4de8-9a70-ddf04d675dc3}">
+    <Declaration><![CDATA[TYPE Millisecond : LREAL; END_TYPE
+]]></Declaration>
+  </DUT>
+</TcPlcObject>
