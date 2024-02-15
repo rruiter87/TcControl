@@ -16,7 +16,7 @@
     <Implicit_Jitter_Distribution>{9330e18b-9c97-4e55-91ab-efd4863c853f}</Implicit_Jitter_Distribution>
     <LibraryReferences>{3d702260-1252-42ef-a1bc-4ecc9ed638d9}</LibraryReferences>
     <Company>Roald</Company>
-    <Released>true</Released>
+    <Released>false</Released>
     <Title>TcControl</Title>
     <ProjectVersion>0.5.1</ProjectVersion>
     <Author>Roald Ruiter</Author>
@@ -38,10 +38,6 @@
     <PlaceholderReference Include="TcUnit">
       <DefaultResolution>TcUnit, * (www.tcunit.org)</DefaultResolution>
       <Namespace>TcUnit</Namespace>
-    </PlaceholderReference>
-    <PlaceholderReference Include="TcUnits">
-      <DefaultResolution>TcUnits, * (Roald)</DefaultResolution>
-      <Namespace>TcUnits</Namespace>
     </PlaceholderReference>
   </ItemGroup>
   <ItemGroup>
@@ -70,6 +66,9 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="ISignal.TcIO">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Millisecond.TcDUT">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Signal.TcPOU">
@@ -129,9 +128,6 @@
     </PlaceholderResolution>
     <PlaceholderResolution Include="TcUnit">
       <Resolution>TcUnit, 1.2.0.0 (www.tcunit.org)</Resolution>
-    </PlaceholderResolution>
-    <PlaceholderResolution Include="TcUnits">
-      <Resolution>TcUnits, 0.1.0 (Roald)</Resolution>
     </PlaceholderResolution>
   </ItemGroup>
   <ProjectExtensions>
