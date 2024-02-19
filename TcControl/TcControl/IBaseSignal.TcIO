@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
+<TcPlcObject Version="1.1.0.1">
   <Itf Name="IBaseSignal" Id="{aeeffa15-e2d7-4163-9256-f2dfded0522d}">
     <Declaration><![CDATA[INTERFACE IBaseSignal EXTENDS IOut
 ]]></Declaration>

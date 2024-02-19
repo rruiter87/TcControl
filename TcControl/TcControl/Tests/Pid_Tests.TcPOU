@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
+<TcPlcObject Version="1.1.0.1">
   <POU Name="Pid_Tests" Id="{d37e3a2d-290f-492c-9ef6-af8dd98f69e3}" SpecialFunc="None">
     <Declaration><![CDATA[FUNCTION_BLOCK Pid_Tests EXTENDS FB_TestSuite
 VAR

@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
+<TcPlcObject Version="1.1.0.1">
   <POU Name="Signal" Id="{d5e65a98-c59a-40a4-8e08-14b2a0104701}" SpecialFunc="None">
     <Declaration><![CDATA[FUNCTION_BLOCK Signal EXTENDS InstancePath IMPLEMENTS IBaseSignal, IDifferentiable, ISignal
 VAR

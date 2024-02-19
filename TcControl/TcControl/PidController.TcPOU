@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
+<TcPlcObject Version="1.1.0.1">
   <POU Name="PidController" Id="{da73802b-2471-4be1-ae33-77c4e2eb36c6}" SpecialFunc="None">
     <Declaration><![CDATA[FUNCTION_BLOCK PidController EXTENDS InstancePath IMPLEMENTS IController, IOut
 VAR_INPUT

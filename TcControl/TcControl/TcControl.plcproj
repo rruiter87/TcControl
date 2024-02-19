@@ -5,7 +5,7 @@
     <ProjectGuid>{f453ab50-38c8-4444-aa8a-35576c734f1e}</ProjectGuid>
     <SubObjectsSortedByName>True</SubObjectsSortedByName>
     <DownloadApplicationInfo>true</DownloadApplicationInfo>
-    <WriteProductVersion>true</WriteProductVersion>
+    <WriteProductVersion>false</WriteProductVersion>
     <GenerateTpy>false</GenerateTpy>
     <Name>TcControl</Name>
     <ProgramVersion>3.1.4023.0</ProgramVersion>
@@ -16,7 +16,7 @@
     <Implicit_Jitter_Distribution>{9330e18b-9c97-4e55-91ab-efd4863c853f}</Implicit_Jitter_Distribution>
     <LibraryReferences>{3d702260-1252-42ef-a1bc-4ecc9ed638d9}</LibraryReferences>
     <Company>Roald</Company>
-    <Released>true</Released>
+    <Released>false</Released>
     <Title>TcControl</Title>
     <ProjectVersion>0.5.2</ProjectVersion>
     <Author>Roald Ruiter</Author>

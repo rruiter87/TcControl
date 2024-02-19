@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
+<TcPlcObject Version="1.1.0.1">
   <Itf Name="IOut" Id="{1f5a0544-bc51-4807-af84-0f40e0d77d06}">
     <Declaration><![CDATA[INTERFACE IOut
 ]]></Declaration>
